@@ -1,9 +1,9 @@
 <template>
-  <ul class="drag-wrap">
-    <li v-for="li in data" :key="li.label" v-drag>
+  <div class="drag-wrap">
+    <div class="drag-item" v-for="li in data" :key="li.label" v-drag>
       <slot :data="li"></slot>
-    </li>
-  </ul>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -36,11 +36,7 @@ export default {
           document.onmousemove = (e) => {
             const left = e.clientX - disX
             const top = e.clientY - disY
-
-            dragItem.style.width = cloneNode.clientWidth + 'px'
-            dragItem.style.height = cloneNode.clientHeight + 'px'
-            dragItem.style.position = 'absolute'
-            dragItem.style.transition = 'none'
+            dragItem.classList.add('drag-active')
             dragItem.style.top = top + 'px'
             dragItem.style.left = left + 'px'
 
@@ -56,6 +52,9 @@ export default {
           }
           // 停止
           document.onmouseup = (e) => {
+            dragItem.classList.remove('drag-active')
+            dragItem.removeAttribute('style')
+            cloneNode.remove()
             document.onmousemove = null
             document.onmouseup = null
           }
@@ -72,8 +71,12 @@ export default {
   position: relative;
   display: flex;
   flex-direction: row;
-  li{
+  .drag-item {
     cursor: pointer;
+  }
+  .drag-active{
+    position: absolute;
+    transition: none;
   }
 }
 </style>
