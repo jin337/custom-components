@@ -1,9 +1,7 @@
 <template>
-  <div>
-    <drag-item v-model="list">
-      <div class="box" v-for="li in list" :key="li.label">{{li.label}}</div>
-    </drag-item>
-  </div>
+  <drag-box :data="list" @on-change="changeCard">
+    <div class="box" slot-scope="{data}">{{data.label}}</div>
+  </drag-box>
 </template>
 
 <script>
@@ -23,12 +21,17 @@ export default {
         }
       ]
     }
+  },
+  methods: {
+    changeCard (data) {
+      console.log(data)
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.box{
+.box {
   width: 50px;
   height: 50px;
   background-color: #fc0;
