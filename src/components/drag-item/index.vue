@@ -63,18 +63,18 @@ export default {
   directives: {
     drag: {
       inserted: (el) => {
-        const dragItem = el
-        const childNodes = dragItem.childNodes
-        const Index = 0
-        childNodes.forEach(element => {
-          const cY = element.offsetTop
-          const cX = element.offsetLeft
-          dragItem.onmousedown = (e) => {
-            const disX = e.clientX - dragItem.offsetLeft
-            const disY = e.clientY - dragItem.offsetTop
-            console.log(disX, disY)
-          }
-        })
+        // const dragItem = el
+        // const childNodes = dragItem.childNodes
+        // const Index = 0
+        // childNodes.forEach(element => {
+        //   const cY = element.offsetTop
+        //   const cX = element.offsetLeft
+        //   dragItem.onmousedown = (e) => {
+        //     const disX = e.clientX - dragItem.offsetLeft
+        //     const disY = e.clientY - dragItem.offsetTop
+        //     console.log(disX, disY)
+        //   }
+        // })
         // childNodes.onmousedown = (e) => {
         // const disX = e.clientX - dragItem.offsetLeft
         // const disY = e.clientY - dragItem.offsetTop

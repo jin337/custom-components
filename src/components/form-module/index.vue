@@ -77,9 +77,9 @@
       <!-- 累加 -->
       <template v-if="item.type === 'add'">
         <el-tag :key="li.value" v-for="li in addList">{{li.value}}</el-tag>
-        <el-input class="input-new-tag" v-if="addInputVisible" v-model="addInput" ref="saveAddInput" size="small" @keyup.enter.native="addSubmit(item.key)" @blur="addSubmit(item.key)">
+        <el-input class="input-new-tag" v-if="addInputVisible" v-model="addInput" ref="saveAddInput" @keyup.enter.native="addSubmit(item.key)" @blur="addSubmit(item.key)">
         </el-input>
-        <el-button v-else class="button-new-tag" size="small" @click="showInput">+ 添加</el-button>
+        <el-button v-else class="button-new-tag" icon="el-icon-plus" @click="showInput">添加</el-button>
       </template>
 
       <!-- 其他 -->
@@ -240,20 +240,6 @@ export default {
     },
     // 转换数据
     transData (data) {
-      let valueData = []
-      let newKey = null
-      for (const [key, value] of Object.entries(data)) {
-        if (key.includes('_value')) {
-          newKey = key.split('_value')
-          valueData = value
-          delete data[key]
-        }
-        if (newKey) {
-          if (newKey[0] == key) {
-            data[key] = valueData
-          }
-        }
-      }
       return data
     }
   }
@@ -297,11 +283,10 @@ export default {
   }
 }
 
-.el-tag + .el-tag {
-  margin-left: 10px;
+.el-tag {
+  margin-right: 10px;
 }
 .button-new-tag {
-  margin-left: 10px;
   height: 32px;
   line-height: 30px;
   padding-top: 0;
@@ -309,7 +294,6 @@ export default {
 }
 .input-new-tag {
   width: 90px;
-  margin-left: 10px;
   vertical-align: bottom;
 }
 </style>

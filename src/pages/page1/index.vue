@@ -2,13 +2,26 @@
   <div>
     <form-module :config="formTemp" v-model="fromData" :width="120">
       <template slot="name13" slot-scope="{data}">
-        {{data.name13}}
-        <el-button type="primary" @click="(data)">新增</el-button>
+        <el-button size="small" @click="openDialog">编辑</el-button>
+        <el-table :data="data.name13" border style="margin-top:10px">
+          <el-table-column prop="date" label="日期"></el-table-column>
+          <el-table-column prop="name" label="姓名"></el-table-column>
+          <el-table-column prop="address" label="地址"></el-table-column>
+        </el-table>
       </template>
       <template slot-scope="{data}">
         <el-button type="primary" @click="getData(data)">提交</el-button>
       </template>
     </form-module>
+
+    <el-dialog :visible.sync="showDialog" width="80%">
+      <form-module :config="dialogTemp" v-model="dialogData" :width="120">
+        <template slot="name3" slot-scope="{data}">{{convertData(data)}}</template>
+        <template slot-scope="{data}">
+          <el-button type="primary" @click="getDialogData(data)">提交</el-button>
+        </template>
+      </form-module>
+    </el-dialog>
   </div>
 </template>
 
@@ -154,12 +167,70 @@ export default {
           type: 'other'
         }
       ],
-      fromData: {}
+      fromData: {},
+
+      showDialog: false,
+      dialogTemp: [
+        {
+          label: '颜色',
+          key: 'name1',
+          type: 'checkbox',
+          options: [
+            {
+              label: '颜色1',
+              key: 1
+            },
+            {
+              label: '颜色2',
+              key: 2
+            },
+            {
+              label: '颜色3',
+              key: 3
+            }
+          ]
+        },
+        {
+          label: '尺码',
+          key: 'name2',
+          type: 'checkbox',
+          options: [
+            {
+              label: '尺码1',
+              key: 1
+            },
+            {
+              label: '尺码2',
+              key: 2
+            },
+            {
+              label: '尺码3',
+              key: 3
+            }
+          ]
+        },
+        {
+          label: '其他',
+          key: 'name3',
+          type: 'other'
+        }
+      ],
+      dialogData: {}
     }
   },
   methods: {
     getData (data) {
       console.log(data)
+    },
+    openDialog () {
+      this.showDialog = true
+    },
+    getDialogData (data) {
+      console.log(data)
+    },
+    convertData (data) {
+      console.log(data)
+      return data
     }
   }
 }
