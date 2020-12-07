@@ -66,32 +66,14 @@ export default {
         // const dragItem = el
         // const childNodes = dragItem.childNodes
         // const Index = 0
-        // childNodes.forEach(element => {
-        //   const cY = element.offsetTop
-        //   const cX = element.offsetLeft
-        //   dragItem.onmousedown = (e) => {
-        //     const disX = e.clientX - dragItem.offsetLeft
-        //     const disY = e.clientY - dragItem.offsetTop
-        //     console.log(disX, disY)
+        // childNodes.forEach(e => {
+        //   const disX = e.offsetLeft
+        //   const disY = e.offsetTop
+        //   console.log(disX, disY)
+        //   document.onmousedown = (e) => {
+        //     console.log(e.offsetX, e.offsetY)
         //   }
         // })
-        // childNodes.onmousedown = (e) => {
-        // const disX = e.clientX - dragItem.offsetLeft
-        // const disY = e.clientY - dragItem.offsetTop
-        //     // 克隆新节点
-        //     // 隐藏当前元素
-
-        //     // 拖动
-        //     document.onmousemove = (e) => {
-        //       return false
-        //     }
-        //     // 停止
-        //     document.onmouseup = (e) => {
-        //       document.onmousemove = null
-        //       document.onmouseup = null
-        //     }
-        //     return false
-        // }
       }
     }
   }

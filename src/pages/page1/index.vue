@@ -14,9 +14,9 @@
       </template>
     </form-module>
 
-    <el-dialog :visible.sync="showDialog" width="80%">
+    <el-dialog :visible.sync="showDialog" width="60%">
       <form-module :config="dialogTemp" v-model="dialogData" :width="120">
-        <template slot="name3" slot-scope="{data}">{{convertData(data)}}</template>
+        <template slot="name3" slot-scope="{data}">{{convertData(data,'name3')}}</template>
         <template slot-scope="{data}">
           <el-button type="primary" @click="getDialogData(data)">提交</el-button>
         </template>
@@ -228,9 +228,14 @@ export default {
     getDialogData (data) {
       console.log(data)
     },
-    convertData (data) {
-      console.log(data)
-      return data
+    convertData (data, name) {
+      const newData = []
+      for (const [key, value] of Object.entries(data)) {
+        if (key !== name) {
+          console.log(value)
+        }
+      }
+      return newData
     }
   }
 }

@@ -84,7 +84,7 @@
 
       <!-- 其他 -->
       <template v-if="item.type === 'other'">
-        <slot :name="item.key" :data="formData"></slot>
+        <slot :name="item.key" :data="transData(formData)"></slot>
       </template>
     </el-form-item>
 
@@ -141,10 +141,11 @@ export default {
         const config = JSON.parse(JSON.stringify(this.config))
         const data = JSON.parse(JSON.stringify(this.value))
 
-        const arrList = ['checkbox', 'select-multiple', 'datepicker']
+        const arrList = ['checkbox', 'select-multiple', 'datepicker', 'other']
 
         for (let i = 0; i < config.length; i++) {
           const element = config[i]
+          data[element.key] = ''
           // data有值时
           if (data[element.key]) {
 
@@ -240,7 +241,17 @@ export default {
     },
     // 转换数据
     transData (data) {
-      return data
+      const newData = {}
+      for (const [key, value] of Object.entries(data)) {
+        let newKey = null
+        if (key.includes('_value')) {
+          newKey = key.slice(0, -6)
+          newData[newKey] = JSON.parse(JSON.stringify(value))
+        } else {
+          newData[key] = JSON.parse(JSON.stringify(value))
+        }
+      }
+      return newData
     }
   }
 }
