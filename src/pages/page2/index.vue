@@ -18,13 +18,33 @@ export default {
         },
         {
           label: 'box3'
+        },
+        {
+          label: 'box4'
+        },
+        {
+          label: 'box5'
+        },
+        {
+          label: 'box6'
+        },
+        {
+          label: 'box7'
+        },
+        {
+          label: 'box8'
+        },
+        {
+          label: 'box9'
         }
       ]
     }
   },
   methods: {
     changeCard (data) {
-      console.log(data)
+      this.$nextTick(() => {
+        this.list = data
+      })
     }
   }
 }

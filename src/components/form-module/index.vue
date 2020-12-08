@@ -82,9 +82,21 @@
         <el-button v-else class="button-new-tag" icon="el-icon-plus" @click="showInput">添加</el-button>
       </template>
 
-      <!-- 其他 -->
-      <template v-if="item.type === 'other'">
-        <slot :name="item.key" :data="transData(formData)"></slot>
+      <!-- 上传图片 -->
+      <template v-if="item.type === 'upload'">
+        <div class="upload-show" v-if="show">
+          <div v-for="pic in fileList" :key="pic">
+            <el-image style="width: 100px; height: 100px" :src="pic" fit="contain"></el-image>
+          </div>
+          <div class="pic-none" v-if="!fileList.length">
+            <i class="el-icon-hot-water"></i>
+            <span>暂无图片</span>
+          </div>
+        </div>
+        <el-upload :action="item.upload.action" :headers="item.upload.headers" :limit="item.upload.limit" :data="item.upload.data" :on-change="changeUpload" :on-remove="removeUpload" :file-list="fileList" list-type="picture" v-else>
+          <el-button size="small" icon="el-icon-upload">点击上传</el-button>
+          <div slot="tip" class="el-upload__tip">只能上传上传图片文件，且文件名称不能包含符号</div>
+        </el-upload>
       </template>
     </el-form-item>
 
@@ -99,12 +111,12 @@ export default {
   name: 'form-module',
   props: {
     // 模板
-    config: {
+    temp: {
       type: Array,
       required: true
     },
     // 填写的数据
-    value: {
+    data: {
       type: Object,
       required: true
     },
@@ -132,25 +144,24 @@ export default {
       // 累加
       addList: [],
       addInputVisible: false,
-      addInput: ''
+      addInput: '',
+      // 上传
+      fileList: []
     }
   },
   computed: {
     formTemp: {
       get () {
-        const config = JSON.parse(JSON.stringify(this.config))
-        const data = JSON.parse(JSON.stringify(this.value))
+        const config = JSON.parse(JSON.stringify(this.temp))
+        const data = JSON.parse(JSON.stringify(this.data))
 
-        const arrList = ['checkbox', 'select-multiple', 'datepicker', 'other']
+        const arrList = ['checkbox', 'select-multiple', 'datepicker']
 
         for (let i = 0; i < config.length; i++) {
           const element = config[i]
-          data[element.key] = ''
-          // data有值时
-          if (data[element.key]) {
-
-          } else {
-            // data为空时
+          // data为空时
+          if (!data[element.key]) {
+            data[element.key] = ''
             arrList.forEach(name => {
               if (element.type == name) {
                 data[element.key] = []
@@ -238,6 +249,20 @@ export default {
       this.addInputVisible = false
       this.addInput = ''
       this.formData[name] = this.addList
+    },
+    // 监控文件上传
+    changeUpload (file, fileList) {
+      for (let i = 0; i < fileList.length; i++) {
+        const element = fileList[i]
+        if (element.response) {
+          element.url = element.response.data.targetAddr
+        }
+      }
+      this.fileList = fileList
+    },
+    // 文件列表移除文件
+    removeUpload (file, fileList) {
+      this.fileList = fileList
     },
     // 转换数据
     transData (data) {
