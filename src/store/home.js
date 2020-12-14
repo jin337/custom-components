@@ -18,6 +18,10 @@ export default {
           {
             name: '拖住组件',
             link: 'page2'
+          },
+          {
+            name: 'canvas',
+            link: 'page3'
           }
         ]
       }

@@ -18,6 +18,11 @@ const routes = [
         path: '/page2',
         name: 'page2',
         component: () => import(/* webpackChunkName: "page2" */ 'pages/page2')
+      },
+      {
+        path: '/page3',
+        name: 'page3',
+        component: () => import(/* webpackChunkName: "page3" */ 'pages/page3')
       }
     ]
   }
