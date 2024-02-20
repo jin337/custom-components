@@ -1,4 +1,4 @@
-# element-ui
+# custom-components
 
 ## Project setup
 ```
